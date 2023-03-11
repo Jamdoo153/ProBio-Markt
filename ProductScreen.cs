@@ -10,19 +10,11 @@ using System.Windows.Forms;
 
 namespace Pro_Bio_Markt
 {
-    public partial class MainMenuScreen : Form
+    public partial class ProductScreen : Form
     {
-        public MainMenuScreen()
+        public ProductScreen()
         {
             InitializeComponent();
-        }
-
-        private void btnProduct_Click(object sender, EventArgs e)
-        {
-            ProductScreen productScreen = new ProductScreen();
-            productScreen.Show();
-
-            this.Hide();
         }
     }
 }

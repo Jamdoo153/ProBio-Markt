@@ -44,6 +44,7 @@
             this.btnProduct.TabIndex = 0;
             this.btnProduct.Text = "Produkte verwalten";
             this.btnProduct.UseVisualStyleBackColor = true;
+            this.btnProduct.Click += new System.EventHandler(this.btnProduct_Click);
             // 
             // btnBill
             // 
