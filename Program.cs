@@ -16,7 +16,8 @@ namespace Pro_Bio_Markt
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoadingScreen());
+            //Application.Run(new LoadingScreen());
+            Application.Run(new MainMenuScreen());
         }
     }
 }

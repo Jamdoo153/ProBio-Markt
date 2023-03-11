@@ -31,6 +31,12 @@ namespace Pro_Bio_Markt
             if (loadingBarValue >= LoadingProgressBar.Maximum)
             { 
                 LoadingBarTimer.Stop();
+
+                // Finisch loading show main menu screen
+                MainMenuScreen mainMenuScreen = new MainMenuScreen();
+                mainMenuScreen.Show();
+
+                this.Hide();
             }
 
         }
