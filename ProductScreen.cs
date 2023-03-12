@@ -16,16 +16,13 @@ namespace Pro_Bio_Markt
     {
         // Verbindung zur Datenbank
         private SqlConnection databaseConnetion = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\Walke\Documents\ProBio Markt.mdf;Integrated Security = True; Connect Timeout = 30");
-        
-        
+        private int lastSelectedProductKey;
+
         public ProductScreen()
         {
             InitializeComponent();
             showProduct();
         }
-
-        
-
         private void btnProductSave_Click(object sender, EventArgs e)
         {
             if (tbxProductName.Text == ""
@@ -43,6 +40,9 @@ namespace Pro_Bio_Markt
             string productBrand = tbxProductBrand.Text;
             string productCategorie = cmbProductCategorie.Text;
             string productPrice = tbxProductPrice.Text;
+
+            string query = string.Format("Insert into Products values('{0}','{1}','{2}','{3}')", productName, productBrand, productCategorie, productPrice);
+            ExcuteQuery(query);
 
             clearProductFields();
             showProduct();
@@ -62,7 +62,25 @@ namespace Pro_Bio_Markt
 
         private void btnProductDelete_Click(object sender, EventArgs e)
         {
+            if (lastSelectedProductKey == 0)
+            {
+                MessageBox.Show("Bitte wähle zurrest ein Produkt aus");
+                return;
+            }
+
+            string query = string.Format("delete from Products where Id={0};", lastSelectedProductKey); 
+            ExcuteQuery(query);
             showProduct();
+            clearProductFields();
+        }
+
+        private void ExcuteQuery(string query)
+        {
+            databaseConnetion.Open();
+            SqlCommand sqlCommand = new SqlCommand(query, databaseConnetion);
+            sqlCommand.ExecuteNonQuery();
+            databaseConnetion.Close();
+
         }
 
         private void showProduct()
@@ -90,6 +108,19 @@ namespace Pro_Bio_Markt
             tbxProductBrand.Text = "";
             cmbProductCategorie.Text = "";
             tbxProductPrice.Text = "";
+
+        }
+
+        private void productsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            tbxProductName.Text = productsDGV.SelectedRows[0].Cells[1].Value.ToString();
+            tbxProductBrand.Text = productsDGV.SelectedRows[0].Cells[2].Value.ToString();
+            cmbProductCategorie.Text = productsDGV.SelectedRows[0].Cells[3].Value.ToString();
+            tbxProductPrice.Text = productsDGV.SelectedRows[0].Cells[4].Value.ToString();
+
+            lastSelectedProductKey = (int)productsDGV.SelectedRows[0].Cells[0].Value;
+            Console.WriteLine(lastSelectedProductKey);
+
 
         }
     }
