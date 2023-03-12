@@ -24,5 +24,13 @@ namespace Pro_Bio_Markt
 
             this.Hide();
         }
+
+        private void btnBill_Click(object sender, EventArgs e)
+        {
+            InvoiceSreen invoiceSreen = new InvoiceSreen();
+            invoiceSreen.Show();
+
+            this.Hide();
+        }
     }
 }
