@@ -50,7 +50,22 @@ namespace Pro_Bio_Markt
 
         private void btnProductEdt_Click(object sender, EventArgs e)
         {
+            if (lastSelectedProductKey == 0)
+            {
+                MessageBox.Show("Bitte wähle zurrest ein Produkt aus");
+                return;
+            }
 
+            string productName = tbxProductName.Text;
+            string productBrand = tbxProductBrand.Text;
+            string productCategorie = cmbProductCategorie.Text;
+            string productPrice = tbxProductPrice.Text;
+
+            string query = string.Format("update Products set Name='{0}', Brand='{1}', Categorie='{2}', Price='{3}' where Id={4}",
+                productName, productBrand, productCategorie, productPrice, lastSelectedProductKey);
+
+            ExcuteQuery(query);
+            clearProductFields();
 
             showProduct();
         }
